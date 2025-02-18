@@ -10,6 +10,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  destination: String,
+  budget: String,
+  currency: String,
+  language: String,
 });
 
 const User = mongoose.model('User', userSchema);
