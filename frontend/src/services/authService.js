@@ -4,7 +4,7 @@ import axios from 'axios';
 const API_URL = '/api/users/';
 
 const useAuth = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
 
   const login = async (email, password) => {
     try {
