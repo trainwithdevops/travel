@@ -18,12 +18,13 @@ const Navbar = () => {
             <li><Link to="/find-members">Find Members</Link></li>
             <li><Link to="/profile">Profile</Link></li>
             <li><Link to="/messages">Messages</Link></li>
+            <li><Link to="/trip-planner">Trip Planner</Link></li>
             <li><button onClick={logout} className="navbar-button">Logout</button></li>
           </>
         ) : (
           <>
             <li><Link to="/login">Login</Link></li>
-            <li><Link to="/signup">Signup</Link></li>
+            <li><Link to="/signup">Signup</li>
           </>
         )}
       </ul>
