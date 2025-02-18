@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import ProtectedRoute from './components/ProtectedRoute';
 import FindMembers from './pages/FindMembers';
+import '../styles/main.css';
 
 const App = () => {
   return (
