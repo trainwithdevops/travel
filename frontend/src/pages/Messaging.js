@@ -35,32 +35,4 @@ const Messaging = () => {
 
   return (
     <div className="messaging">
-      <h1>Messages</h1>
-      <form onSubmit={handleSend} className="messaging-form">
-        <input
-          type="text"
-          placeholder="Recipient ID"
-          value={recipientId}
-          onChange={(e) => setRecipientId(e.target.value)}
-          className="messaging-input"
-        />
-        <textarea
-          placeholder="Message"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          className="messaging-textarea"
-        ></textarea>
-        <button type="submit" className="messaging-button">Send</button>
-      </form>
-      <ul className="messages-list">
-        {messages.map((message) => (
-          <li key={message._id} className="message-item">
-            <strong>{message.sender.email} to {message.recipient.email}:</strong> {message.content}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
-
-export default Messaging;
+      <h1>Messages</h1
