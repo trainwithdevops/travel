@@ -16,6 +16,8 @@ const Navbar = () => {
           <>
             <li><Link to="/blog">Blog</Link></li>
             <li><Link to="/find-members">Find Members</Link></li>
+            <li><Link to="/profile">Profile</Link></li>
+            <li><Link to="/messages">Messages</Link></li>
             <li><button onClick={logout} className="navbar-button">Logout</button></li>
           </>
         ) : (
