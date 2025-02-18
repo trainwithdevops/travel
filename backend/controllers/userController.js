@@ -45,3 +45,27 @@ exports.getUsers = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+exports.getUserProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.updateUserProfile = async (req, res) => {
+  const { destination, budget, currency, language } = req.body;
+  try {
+    const user = await User.findById(req.user.id);
+    if (destination) user.destination = destination;
+    if (budget) user.budget = budget;
+    if (currency) user.currency = currency;
+    if (language) user.language = language;
+    await user.save();
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
