@@ -3,7 +3,7 @@ const db = require('../config/db')();
 exports.sendMessage = async (req, res) => {
   const { recipientId, content } = req.body;
   try {
-    const [result] = await db.query('INSERT INTO messages (sender_id, recipient_id, content) VALUES (?, ?, ?)', [req.user.id, recipientId, content]);
+    await db.query('INSERT INTO messages (sender_id, recipient_id, content) VALUES (?, ?, ?)', [req.user.id, recipientId, content]);
     res.status(201).json({ message: 'Message sent successfully' });
   } catch (error) {
     res.status(500).json({ error: error.message });
