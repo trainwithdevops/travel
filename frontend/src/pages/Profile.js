@@ -55,41 +55,4 @@ const Profile = () => {
         />
         <input
           type="text"
-          name="destination"
-          placeholder="Destination"
-          value={profile.destination}
-          onChange={handleChange}
-          className="profile-input"
-        />
-        <input
-          type="text"
-          name="budget"
-          placeholder="Budget"
-          value={profile.budget}
-          onChange={handleChange}
-          className="profile-input"
-        />
-        <input
-          type="text"
-          name="currency"
-          placeholder="Currency"
-          value={profile.currency}
-          onChange={handleChange}
-          className="profile-input"
-        />
-        <input
-          type="text"
-          name="language"
-          placeholder="Language"
-          value={profile.language}
-          onChange={handleChange}
-          className="profile-input"
-        />
-        <button type="submit" className="profile-button">Update Profile</button>
-      </form>
-      <button onClick={logout} className="profile-button">Logout</button>
-    </div>
-  );
-};
-
-export default Profile;
+          name="destination
