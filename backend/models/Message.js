@@ -1,26 +1,20 @@
-const mongoose = require('mongoose');
+const db = require('../config/db')();
 
-const messageSchema = new mongoose.Schema({
-  sender: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
-  },
-  recipient: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
-  },
-  content: {
-    type: String,
-    required: true,
-  },
-  timestamp: {
-    type: Date,
-    default: Date.now,
-  },
-});
+const createMessageTable = async () => {
+  const query = `
+    CREATE TABLE IF NOT EXISTS messages (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      sender_id INT NOT NULL,
+      recipient_id INT NOT NULL,
+      content TEXT NOT NULL,
+      timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (sender_id) REFERENCES users(id),
+      FOREIGN KEY (recipient_id) REFERENCES users(id)
+    )
+  `;
+  await db.query(query);
+};
 
-const Message = mongoose.model('Message', messageSchema);
+createMessageTable();
 
-module.exports = Message;
+module.exports = db;
