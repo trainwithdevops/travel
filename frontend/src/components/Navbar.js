@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../services/authService';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/main.css';
 
 const Navbar = () => {
@@ -23,19 +24,3 @@ const Navbar = () => {
               <li className="nav-item"><Link className="nav-link" to="/find-members">Find Members</Link></li>
               <li className="nav-item"><Link className="nav-link" to="/profile">Profile</Link></li>
               <li className="nav-item"><Link className="nav-link" to="/messages">Messages</Link></li>
-              <li className="nav-item"><Link className="nav-link" to="/trip-planner">Trip Planner</Link></li>
-              <li className="nav-item"><button onClick={logout} className="btn btn-outline-secondary">Logout</button></li>
-            </>
-          ) : (
-            <>
-              <li className="nav-item"><Link className="nav-link" to="/login">Login</Link></li>
-              <li className="nav-item"><Link className="nav-link" to="/signup">Signup</Link></li>
-            </>
-          )}
-        </ul>
-      </div>
-    </nav>
-  );
-};
-
-export default Navbar;
