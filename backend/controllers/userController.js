@@ -7,7 +7,7 @@ exports.registerUser = async (req, res) => {
   try {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-    const [result] = await db.query('INSERT INTO users (email, password) VALUES (?, ?)', [email, hashedPassword]);
+    await db.query('INSERT INTO users (email, password) VALUES (?, ?)', [email, hashedPassword]);
     res.status(201).json({ message: 'User registered successfully' });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -33,7 +33,7 @@ exports.loginUser = async (req, res) => {
 exports.getUsers = async (req, res) => {
   const { destination, budget, currency, language } = req.query;
   try {
-    const query = 'SELECT * FROM users WHERE 1=1';
+    let query = 'SELECT * FROM users WHERE 1=1';
     const params = [];
     if (destination) {
       query += ' AND destination = ?';
