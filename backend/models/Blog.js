@@ -1,25 +1,19 @@
-const mongoose = require('mongoose');
+const db = require('../config/db')();
 
-const blogSchema = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
-  },
-  title: {
-    type: String,
-    required: true,
-  },
-  content: {
-    type: String,
-    required: true,
-  },
-  timestamp: {
-    type: Date,
-    default: Date.now,
-  },
-});
+const createBlogTable = async () => {
+  const query = `
+    CREATE TABLE IF NOT EXISTS blogs (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      user_id INT NOT NULL,
+      title VARCHAR(255) NOT NULL,
+      content TEXT NOT NULL,
+      timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (user_id) REFERENCES users(id)
+    )
+  `;
+  await db.query(query);
+};
 
-const Blog = mongoose.model('Blog', blogSchema);
+createBlogTable();
 
-module.exports = Blog;
+module.exports = db;
