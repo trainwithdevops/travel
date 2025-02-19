@@ -25,6 +25,7 @@ exports.loginUser = async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: '1h',
     });
+    res.cookie('token', token, { httpOnly: true, secure: true });
     res.json({ token });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -68,4 +69,9 @@ exports.updateUserProfile = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+};
+
+exports.logoutUser = (req, res) => {
+  res.clearCookie('token');
+  res.json({ message: 'Logged out successfully' });
 };
