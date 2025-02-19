@@ -1,15 +1,10 @@
-const Message = require('../models/Message');
+const db = require('../config/db')();
 
 exports.sendMessage = async (req, res) => {
   const { recipientId, content } = req.body;
   try {
-    const message = new Message({
-      sender: req.user.id,
-      recipient: recipientId,
-      content,
-    });
-    await message.save();
-    res.status(201).json(message);
+    const [result] = await db.query('INSERT INTO messages (sender_id, recipient_id, content) VALUES (?, ?, ?)', [req.user.id, recipientId, content]);
+    res.status(201).json({ message: 'Message sent successfully' });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -17,10 +12,8 @@ exports.sendMessage = async (req, res) => {
 
 exports.getMessages = async (req, res) => {
   try {
-    const messages = await Message.find({
-      $or: [{ sender: req.user.id }, { recipient: req.user.id }],
-    }).populate('sender', 'email').populate('recipient', 'email');
-    res.json(messages);
+    const [rows] = await db.query('SELECT * FROM messages WHERE sender_id = ? OR recipient_id = ?', [req.user.id, req.user.id]);
+    res.json(rows);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
