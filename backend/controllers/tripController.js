@@ -1,18 +1,10 @@
-const Trip = require('../models/Trip');
+const db = require('../config/db')();
 
 exports.createTrip = async (req, res) => {
   const { title, description, destination, startDate, endDate } = req.body;
   try {
-    const trip = new Trip({
-      user: req.user.id,
-      title,
-      description,
-      destination,
-      startDate,
-      endDate,
-    });
-    await trip.save();
-    res.status(201).json(trip);
+    const [result] = await db.query('INSERT INTO trips (user_id, title, description, destination, start_date, end_date) VALUES (?, ?, ?, ?, ?, ?)', [req.user.id, title, description, destination, startDate, endDate]);
+    res.status(201).json({ message: 'Trip created successfully' });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -20,8 +12,8 @@ exports.createTrip = async (req, res) => {
 
 exports.getTrips = async (req, res) => {
   try {
-    const trips = await Trip.find({ user: req.user.id });
-    res.json(trips);
+    const [rows] = await db.query('SELECT * FROM trips WHERE user_id = ?', [req.user.id]);
+    res.json(rows);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
