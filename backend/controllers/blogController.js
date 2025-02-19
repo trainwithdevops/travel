@@ -1,15 +1,10 @@
-const Blog = require('../models/Blog');
+const db = require('../config/db')();
 
 exports.createBlog = async (req, res) => {
   const { title, content } = req.body;
   try {
-    const blog = new Blog({
-      user: req.user.id,
-      title,
-      content,
-    });
-    await blog.save();
-    res.status(201).json(blog);
+    const [result] = await db.query('INSERT INTO blogs (user_id, title, content) VALUES (?, ?, ?)', [req.user.id, title, content]);
+    res.status(201).json({ message: 'Blog created successfully' });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -17,8 +12,8 @@ exports.createBlog = async (req, res) => {
 
 exports.getBlogs = async (req, res) => {
   try {
-    const blogs = await Blog.find().populate('user', 'email');
-    res.json(blogs);
+    const [rows] = await db.query('SELECT * FROM blogs');
+    res.json(rows);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
