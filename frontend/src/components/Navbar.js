@@ -24,3 +24,9 @@ const Navbar = () => {
               <li className="nav-item"><Link className="nav-link" to="/find-members">Find Members</Link></li>
               <li className="nav-item"><Link className="nav-link" to="/profile">Profile</Link></li>
               <li className="nav-item"><Link className="nav-link" to="/messages">Messages</Link></li>
+              <li className="nav-item"><Link className="nav-link" to="/trip-planner">Trip Planner</Link></li>
+              <li className="nav-item"><button onClick={logout} className="btn btn-outline-secondary">Logout</button></li>
+            </>
+          ) : (
+            <>
+              <li className="nav-item"><Link class
