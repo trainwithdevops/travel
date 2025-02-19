@@ -1,21 +1,20 @@
-const mongoose = require('mongoose');
+const db = require('../config/db')();
 
-const userSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  destination: String,
-  budget: String,
-  currency: String,
-  language: String,
-});
+const createUserTable = async () => {
+  const query = `
+    CREATE TABLE IF NOT EXISTS users (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      email VARCHAR(255) NOT NULL UNIQUE,
+      password VARCHAR(255) NOT NULL,
+      destination VARCHAR(255),
+      budget VARCHAR(255),
+      currency VARCHAR(255),
+      language VARCHAR(255)
+    )
+  `;
+  await db.query(query);
+};
 
-const User = mongoose.model('User', userSchema);
+createUserTable();
 
-module.exports = User;
+module.exports = db;
