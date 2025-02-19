@@ -1,12 +1,15 @@
-const mongoose = require('mongoose');
+const mysql = require('mysql2/promise');
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+    const connection = await mysql.createConnection({
+      host: process.env.DB_HOST,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
     });
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
+    console.log('MySQL Connected');
+    return connection;
   } catch (error) {
     console.error(`Error: ${error.message}`);
     process.exit(1);
