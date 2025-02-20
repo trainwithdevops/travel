@@ -78,9 +78,9 @@ exports.getUserProfile = async (req, res) => {
 };
 
 exports.updateUserProfile = async (req, res) => {
-  const { destination, budget, currency, language } = req.body;
+  const { destination, budget, currency, language, socialLinks } = req.body;
   try {
-    await db.query('UPDATE users SET destination = ?, budget = ?, currency = ?, language = ? WHERE id = ?', [destination, budget, currency, language, req.user.id]);
+    await db.query('UPDATE users SET destination = ?, budget = ?, currency = ?, language = ?, social_links = ? WHERE id = ?', [destination, budget, currency, language, socialLinks, req.user.id]);
     res.json({ message: 'Profile updated successfully' });
   } catch (error) {
     res.status(500).json({ error: error.message });
