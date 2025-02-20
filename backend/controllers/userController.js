@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const db = require('../config/db')();
+const { upload } = require('../utils/upload');
 
 exports.registerUser = async (req, res) => {
   const { email, password } = req.body;
@@ -72,6 +73,16 @@ exports.updateUserProfile = async (req, res) => {
   try {
     await db.query('UPDATE users SET destination = ?, budget = ?, currency = ?, language = ? WHERE id = ?', [destination, budget, currency, language, req.user.id]);
     res.json({ message: 'Profile updated successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.uploadProfilePicture = async (req, res) => {
+  try {
+    const profilePicture = req.file.path;
+    await db.query('UPDATE users SET profile_picture = ? WHERE id = ?', [profilePicture, req.user.id]);
+    res.json({ message: 'Profile picture uploaded successfully' });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
