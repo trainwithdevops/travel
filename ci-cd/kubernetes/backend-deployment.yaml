@@ -14,11 +14,34 @@ spec:
     spec:
       containers:
       - name: backend
-        image: your-docker-repo/backend:latest
+        image: travel-community-website:latest
         ports:
         - containerPort: 5000
         env:
-        - name: MONGO_URI
-          value: mongodb://your-mongo-uri
+        - name: NODE_ENV
+          value: "production"
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: host
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: user
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: password
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: name
         - name: JWT_SECRET
-          value: your-jwt-secret
+          valueFrom:
+            secretKeyRef:
+              name: jwt-secret
+              key: secret
