@@ -21,7 +21,10 @@
     "socket.io": "^4.5.4",
     "passport": "^0.6.0",
     "passport-google-oauth20": "^2.0.0",
-    "express-session": "^1.17.3"
+    "express-session": "^1.17.3",
+    "i18next": "^21.8.12",
+    "i18next-express-middleware": "^1.9.1",
+    "i18next-node-fs-backend": "^2.1.5"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
