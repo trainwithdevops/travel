@@ -81,3 +81,13 @@ exports.logoutUser = (req, res) => {
   res.clearCookie('token');
   res.json({ message: 'Logged out successfully' });
 };
+
+exports.submitFeedback = async (req, res) => {
+  const { feedback } = req.body;
+  try {
+    await db.query('INSERT INTO feedback (user_id, feedback) VALUES (?, ?)', [req.user.id, feedback]);
+    res.status(201).json({ message: 'Feedback submitted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
