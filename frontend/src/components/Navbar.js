@@ -25,8 +25,19 @@ const Navbar = () => {
               <li className="nav-item"><Link className="nav-link" to="/profile">Profile</Link></li>
               <li className="nav-item"><Link className="nav-link" to="/messages">Messages</Link></li>
               <li className="nav-item"><Link className="nav-link" to="/trip-planner">Trip Planner</Link></li>
+              <li className="nav-item"><Link className="nav-link" to="/feedback">Feedback</Link></li>
               <li className="nav-item"><button onClick={logout} className="btn btn-outline-secondary">Logout</button></li>
             </>
           ) : (
             <>
-              <li className="nav-item"><Link class
+              <li className="nav-item"><Link className="nav-link" to="/login">Login</Link></li>
+              <li className="nav-item"><Link className="nav-link" to="/signup">Signup</Link></li>
+            </>
+          )}
+        </ul>
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;
