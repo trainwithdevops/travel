@@ -18,4 +18,17 @@ const createTripTable = async () => {
 
 createTripTable();
 
-module.exports = db;
+const createTripParticipantsTable = async () => {
+  const query = `
+    CREATE TABLE IF NOT EXISTS trip_participants (
+      trip_id INT NOT NULL,
+      user_id INT NOT NULL,
+      PRIMARY KEY (trip_id, user_id),
+      FOREIGN KEY (trip_id) REFERENCES trips(id),
+      FOREIGN KEY (user_id) REFERENCES users(id)
+    )
+  `;
+  await db.query(query);
+};
+
+createTrip
