@@ -10,7 +10,8 @@ const createUserTable = async () => {
       budget VARCHAR(255),
       currency VARCHAR(255),
       language VARCHAR(255),
-      profile_picture VARCHAR(255)
+      profile_picture VARCHAR(255),
+      social_links VARCHAR(255)
     )
   `;
   await db.query(query);
