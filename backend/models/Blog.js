@@ -7,8 +7,10 @@ const createBlogTable = async () => {
       user_id INT NOT NULL,
       title VARCHAR(255) NOT NULL,
       content TEXT NOT NULL,
+      category_id INT NOT NULL,
       timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY (user_id) REFERENCES users(id)
+      FOREIGN KEY (user_id) REFERENCES users(id),
+      FOREIGN KEY (category_id) REFERENCES categories(id)
     )
   `;
   await db.query(query);
