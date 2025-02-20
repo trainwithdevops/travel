@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const db = require('../config/db')();
 const { upload } = require('../utils/upload');
+const passport = require('passport');
 
 exports.registerUser = async (req, res) => {
   const { email, password } = req.body;
@@ -29,6 +30,14 @@ exports.loginUser = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+};
+
+exports.googleAuth = passport.authenticate('google', { scope: ['profile', 'email'] });
+
+exports.googleAuthCallback = passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
+  const token = jwt.sign({ id: req.user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+  res.cookie('token', token, { httpOnly: true, secure: true });
+  res.redirect('/');
 };
 
 exports.getUsers = async (req, res) => {
