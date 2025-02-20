@@ -1,13 +1,20 @@
 const db = require('../config/db')();
-const { Client } = require("@googlemaps/google-maps-services-js");
+const { Client } = require('@googlemaps/google-maps-services-js');
 
 exports.createTrip = async (req, res) => {
   const { title, description, destination, startDate, endDate, participants } = req.body;
   try {
-    const [result] = await db.query('INSERT INTO trips (user_id, title, description, destination, start_date, end_date) VALUES (?, ?, ?, ?, ?, ?)', [req.user.id, title, description, destination, startDate, endDate]);
+    const [result] = await db.query('INSERT INTO trips (user_id, title, description, destination, start_date, end_date) VALUES (?, ?, ?, ?, ?, ?)', [
+      req.user.id,
+      title,
+      description,
+      destination,
+      startDate,
+      endDate,
+    ]);
     const tripId = result.insertId;
     if (participants && participants.length > 0) {
-      const values = participants.map(p => [tripId, p]);
+      const values = participants.map((p) => [tripId, p]);
       await db.query('INSERT INTO trip_participants (trip_id, user_id) VALUES ?', [values]);
     }
     res.status(201).json({ message: 'Trip created successfully' });
@@ -34,7 +41,7 @@ exports.getMap = async (req, res) => {
         address: destination,
         key: process.env.GOOGLE_MAPS_API_KEY,
       },
-      timeout: 1000
+      timeout: 1000,
     });
     res.json(response.data.results);
   } catch (error) {
